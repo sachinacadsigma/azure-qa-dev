@@ -1,0 +1,16 @@
+# Our how-to docs will use --debug parameter which is only available in Flask 2.2+
+Flask==2.3.2
+# If Flask-Session is not maintained in future, Flask-Session2 should work as well
+Flask-Session>=0.3.2,<0.5
+werkzeug>=2
+requests>=2,<3
+identity>=0.2,<0.3
+python-dotenv<0.22
+onelogin
+python3-saml
+urllib3
+deepl
+psycopg2-binary
+azure-storage-blob
+PyJWT
+
