@@ -1,8 +1,8 @@
 {
   "sp": {
-    "entityId": "https://qa-dev-search.azurewebsites.net/meta",
+    "entityId": "https://app-alta-dev.azurewebsites.net/meta",
     "assertionConsumerService": {
-      "url": "https://qa-dev-search.azurewebsites.net/saml/callback",
+      "url": "https://app-alta-dev.azurewebsites.net/saml/callback",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     },
     "singleLogoutService": {
@@ -17,6 +17,6 @@
       "url": "https://login.microsoftonline.com/b7fc2166-4e80-4e62-a02a-814560e30976/saml2",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     },
-    "x509cert": "-----BEGIN CERTIFICATE-----\nMIIC8DCCAdigAwIBAgIQN8LAddC/rLtF879XN+9ZWDANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQD\nEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yNTA1MjgwOTIx\nNTVaFw0yODA1MjgwOTIxNTZaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQg\nU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAplTB7AK8ONlD\nMcOcUg7jlzKV+JiUPw1Sg4WdYmWW5/+z/6weHjBwAiwqbR9Ph9KQ/HL1Y00jcSwuug5krffhKBBg\nKkgRzD6gGVTLSrgKJXsLfCz/mC72IjgTWkMOYpvcwzvsJXFNBFUt9QeAdPxQZM/P+y+0JN6rIMFZ\nq674z/5jLy8xYX8OQtcT0Ak7N21WaTkdNQ8Srgj+fItf/62dG6kMRaR2VbQngfCCz114DvsXT0ev\nsGN7I/ckiRXX4Ai5K+Yv3I+4YxJBZvatIHYmMtsLxUMRFzOwg34VxmEf/kga0ef7gvMG/j1PUeP3\nEI2KWVnJy95+EK04dnytBW+XfQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBnAuibxEdq8wjWW9xu\nsLo7oaM1P+FRHCnou1gA1+sReRJW/vk3f17qY1KE1B4aJ56QTGO4mqWtXT0APfr3PymzHNC+etFj\nwsYMmGe8AdC+gX0BZSdkbxFnvpnpiEV5qwDGeV8J8XIENv3L9oWJXKB62xdR7Uz+txPVF6IbIY6H\nHOP4QH1Pflg5bvizxOknP3f+kEDoeZVPDBKdX3G4JX9jScpyU82m8uCKyviCWeT9frXmyvQwIbCJ\nfmA+v8hYtCrKVl/EyqJ8yoa8UWXO3+xQx/g5IZGgjMCIaKxovV+i7yts1CHXqcPBAbtKwyBcHB2r\nRF5OF7FCrvkCXdwaY0sk\n-----END CERTIFICATE-----"
+    "x509cert": "-----BEGIN CERTIFICATE-----\nMIIC8DCCAdigAwIBAgIQJcXQp7NXSbhFWjwdsgIqdDANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQD\nEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yNTA1MzAxMTA5\nMDJaFw0yODA1MzAxMTA5MDBaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQg\nU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyvCP2CDfQkTj\n9x85gD76qyVQrDgLi8vle5OtQyvYJR65Dwggcj8hGo26yL7w5vpi71OSNBYrBKuwXTX0aJC1g6bz\n5ttHENaAzC/ZJcRJrD45BJ07rvcIcCKKupAs9/LQki0lo8+8YOE8vydF4iU9seCNmFQvM43P+Wj2\nBW6joi2VsjgGZCQegsSgverbcXapwr32XP5BUiBB0LKaNfD5SZycZa0j56t/6OKT4+iD0p0P45yj\nBnvBpD8QL0/sRg4Xq3NyVVyeuIHmzcggDsrPLHNWQ12qD/PhCc5uLUHKNSld2H72vCkHjXMvFs2g\n7pT81PKTDHGwMHy5pOGFkcxzSQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQASHBi71YxnhdhvMrCY\nSElaicKRkfUlbYm5G1DJXWywuY0Uq84wiw+zPpeqJCcKnXQSIGMxabhqHnd0b3LoiLtElRbIYQN7\n9nDu4l0XBXO7TVoIEL2eExlMEFK8yf5CFL88V5hWT0AJj8MyvFQrlDlYO1mf61wImvzHKLIAcpq8\n3AcnV05d8h9pLIVtftpW3M2OgBmqOJMiscZP9aaTMvaRieHN1FxK47/3Ogoer5DUhwBJY3NmToOr\n5rssaBXeVL3bTlJ7TJAKkeieFiQQ1LkFdis35uAFhao7lLKvS9vdOIq5UUuE1zSGumrzxtOBj7kB\niuLQD7KPoJrC7pIzpws3\n-----END CERTIFICATE-----"
   }
 }
