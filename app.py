@@ -37,7 +37,7 @@ def data_from_token():
     return get_data_from_token(token)
 
 
-@app.route("/sync-sharepoint", methods=["POST", "GET"])
+@app.route('/sync-sharepoint', methods=["POST", "GET"])
 def webhook_handler():
     # Microsoft Graph sends a GET with `validationToken` for verification
     if request.method == "GET" and "validationToken" in request.args:
