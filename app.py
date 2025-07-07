@@ -8,7 +8,7 @@ from saml import saml_login, saml_callback, get_data_from_token
 import json
 from azure.storage.blob import BlobServiceClient
 from storing_user_feedback import store_feedback  # Import the feedback function
-
+from sync_logic import sync_sharepoint_to_blob
 
 app = Flask(__name__)
 
@@ -35,6 +35,23 @@ def data_from_token():
     data = request.get_json()
     token = data.get('token')
     return get_data_from_token(token)
+
+
+@app.route("/sync-sharepoint", methods=["POST", "GET"])
+def webhook_handler():
+    # Microsoft Graph sends a GET with `validationToken` for verification
+    if request.method == "GET" and "validationToken" in request.args:
+        return request.args.get("validationToken"), 200
+
+    # POST means an actual change notification
+    if request.method == "POST":
+        try:
+            success = sync_sharepoint_to_blob()
+            return jsonify({"status": "success" if success else "failed"}), 200
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+    return jsonify({"message": "Unsupported method"}), 405
     
 
 # Database connection details
