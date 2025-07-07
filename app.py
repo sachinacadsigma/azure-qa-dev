@@ -39,11 +39,13 @@ def data_from_token():
 
 @app.route('/sync-sharepoint', methods=["POST", "GET"])
 def webhook_handler():
-    # Microsoft Graph sends a GET with `validationToken` for verification
-    if request.method == "GET" and "validationToken" in request.args:
-        return request.args.get("validationToken"), 200
+    # ✅ Microsoft Graph sends a POST with validationToken in query params
+    validation_token = request.args.get("validationToken")
+    if validation_token:
+        print("🔐 Responding to Microsoft Graph validation request.")
+        return validation_token, 200, {"Content-Type": "text/plain"}
 
-    # POST means an actual change notification
+    # ✅ Actual change notification from Graph
     if request.method == "POST":
         try:
             success = sync_sharepoint_to_blob()
@@ -52,7 +54,6 @@ def webhook_handler():
             return jsonify({"error": str(e)}), 500
 
     return jsonify({"message": "Unsupported method"}), 405
-    
 
 # Database connection details
 DB_CONFIG = {
