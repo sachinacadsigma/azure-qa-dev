@@ -32,16 +32,34 @@ def sync_sharepoint_to_blob():
         access_token = token_result["access_token"]
         headers = {"Authorization": f"Bearer {access_token}"}
 
-        # Get Site and Drive
+        # ------------------ GET SITE ------------------
         site_resp = requests.get("https://graph.microsoft.com/v1.0/sites?search=doc-ai-platform", headers=headers).json()
-        site_id = site_resp["value"][0]["id"]
+        if "value" in site_resp and site_resp["value"]:
+            site_id = site_resp["value"][0]["id"]
+            print(f"✅ Found site via search: {site_id}")
+        else:
+            # fallback: canonical path
+            fallback_url = "https://graph.microsoft.com/v1.0/sites/acadsigma.sharepoint.com:/sites/doc-ai-platform"
+            print("⚠️ Site not found via search. Trying fallback...")
+            site_resp = requests.get(fallback_url, headers=headers).json()
+            if "id" not in site_resp:
+                raise Exception(f"Site not found: {site_resp}")
+            site_id = site_resp["id"]
+            print(f"✅ Found site via canonical path: {site_id}")
 
+        # ------------------ GET DRIVE ------------------
         drive_resp = requests.get(f"https://graph.microsoft.com/v1.0/sites/{site_id}/drives", headers=headers).json()
+        if "value" not in drive_resp or not drive_resp["value"]:
+            raise Exception(f"Drive fetch failed: {drive_resp}")
         drive_id = drive_resp["value"][0]["id"]
+        print(f"✅ Drive ID: {drive_id}")
 
-        # List SharePoint files
+        # ------------------ GET FILES ------------------
         sp_files_url = f"https://graph.microsoft.com/v1.0/drives/{drive_id}/items/{FOLDER_ID}/children"
-        sp_files = requests.get(sp_files_url, headers=headers).json().get("value", [])
+        sp_files_resp = requests.get(sp_files_url, headers=headers).json()
+        sp_files = sp_files_resp.get("value", [])
+        if not sp_files:
+            print("⚠️ No files found in folder.")
 
         sp_file_map = {
             f["name"]: {
@@ -51,6 +69,7 @@ def sync_sharepoint_to_blob():
             for f in sp_files if "file" in f
         }
 
+        # ------------------ BLOB UPLOAD ------------------
         blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
         container_client = blob_service_client.get_container_client(CONTAINER_NAME)
         blob_names = {blob.name for blob in container_client.list_blobs()}
@@ -92,3 +111,4 @@ def sync_sharepoint_to_blob():
     except Exception as e:
         print(f"❌ Sync failed: {e}")
         return False
+
