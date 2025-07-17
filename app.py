@@ -9,7 +9,8 @@ import json
 from azure.storage.blob import BlobServiceClient
 from storing_user_feedback import store_feedback  # Import the feedback function
 from sync_logic import sync_sharepoint_to_blob
-
+from search import search_handler
+from openai import OpenAIError
 app = Flask(__name__)
 
 # DeepL API key
@@ -832,6 +833,22 @@ STORAGE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=devaitra
 # Initialize Azure Blob Service Client
 blob_service_client = BlobServiceClient.from_connection_string(STORAGE_CONNECTION_STRING)
 
+@app.route("/ask", methods=["POST"])
+def ask():
+    data = request.get_json()
+    if not data or "query" not in data:
+        return jsonify({"error": "Missing 'query' in request body"}), 400
+
+    user_id = data.get("user_id", "default_user")
+    try:
+        result = search_handler.handle_query(data["query"], user_id)
+        return jsonify(result)
+    except OpenAIError as e:
+        return jsonify({"error": f"OpenAI Error: {str(e)}"}), 403
+    except Exception as e:
+        return jsonify({"error": f"Unhandled Exception: {str(e)}"}), 500
+
+
 @app.route('/multiple_files2', methods=['POST'])
 def translate_files2():
     try:
@@ -953,6 +970,7 @@ def translate_files2():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+        
     
 if __name__ == '__main__':
     # Use the environment variable PORT, or default to port 5000 if not set
