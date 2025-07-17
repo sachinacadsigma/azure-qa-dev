@@ -13,7 +13,18 @@ pyJWT
 openpyxl
 urllib3
 deepl
-psycopg2-binary
-azure-storage-blob
+
+
 msal
+
+
+azure-core
+azure-search-documents==11.5.2
+azure-storage-blob
+azure-identity
+openai
+aiohttp
+ipywidgets
+ipykernel
+psycopg2==2.9.10
 
