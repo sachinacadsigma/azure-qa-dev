@@ -91,7 +91,7 @@ class ChunkFetcher:
     def __init__(self):
         self.credential = DefaultAzureCredential()
         self.search_client = SearchClient(
-            endpoint="https://acadsigma-azure-search.search.windows.net",
+            endpoint="https://acadsigma-search-resource.search.windows.net",
             index_name="demo-index",
             credential=self.credential
         )
