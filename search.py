@@ -104,7 +104,9 @@ class ChunkFetcher:
             vector_queries=[vector_query],
             select=["title", "chunk", "parent_id"],
             top=k_value,
-            query_type="simple"
+            semantic_configuration_name="Demo-semantic-configuration",
+            query_type="semantic"
+            
         )
         chunks, sources = [], []
         for i, doc in enumerate(search_results):
