@@ -7,6 +7,7 @@ from azure.search.documents import SearchClient
 from azure.search.documents.models import VectorizableTextQuery
 from azure.identity import DefaultAzureCredential
 from openai import AzureOpenAI, OpenAIError
+from azure.core.credentials import AzureKeyCredential
 
 class Utils:
     @staticmethod
@@ -93,7 +94,7 @@ class ChunkFetcher:
         self.search_client = SearchClient(
             endpoint="https://acadsigma-search-resource.search.windows.net",
             index_name="demo-index",
-            credential=self.credential
+            credential=AzureKeyCredential("aY8NB9JKH2G0MYsI0tH1hUC3w1F3wMFNjMBHSglxpeAzSeC6ugEH")
         )
 
     def fetch_chunks(self, query_text, k_value, start_index):
