@@ -160,11 +160,11 @@ SOURCES:
 class OpenAIClientWrapper:
     def __init__(self):
         self.client = AzureOpenAI(
-            api_key="b04a94c2d9334a1a9dcbfee4bdb8fdc3",
+            api_key="9OnsDORBite5b6Vdf7Sd74lcCdKvHgHtFpACRcBnjKAAHcssgOQBJQQJ99BGACYeBjFXJ3w3AAABACOGe9IH",
             api_version="2025-01-01-preview",
-            azure_endpoint="https://open23.openai.azure.com/"
+            azure_endpoint="https://aoai-rd-1.openai.azure.com/"
         )
-        self.model = "gpt-4"
+        self.model = "gpt-4o-mini-rnd"
 
     def chat_completion(self, prompt):
         try:
