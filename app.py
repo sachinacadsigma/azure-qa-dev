@@ -1037,7 +1037,21 @@ def download_blob():
     except Exception as e:
         return jsonify({"error": f"Download failed: {str(e)}"}), 500
        
-   
+@app.route("/blob/delete", methods=["POST"])
+def delete_blob():
+    data = request.get_json()
+    container_name = data.get("container_name")
+    blob_name = data.get("blob_name")
+
+    if not container_name or not blob_name:
+        return jsonify({"error": "Missing 'container_name' or 'blob_name'"}), 400
+
+    try:
+        blob_client = blob_service.get_blob_client(container=container_name, blob=blob_name)
+        blob_client.delete_blob()
+        return jsonify({"message": f"Deleted blob '{blob_name}' from container '{container_name}'"}), 200
+    except Exception as e:
+        return jsonify({"error": f"Delete failed: {str(e)}"}), 500  
 
     
 if __name__ == '__main__':
