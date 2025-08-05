@@ -1053,6 +1053,37 @@ def delete_blob():
     except Exception as e:
         return jsonify({"error": f"Delete failed: {str(e)}"}), 500  
 
+# Azure Cognitive Search configuration
+SEARCH_SERVICE_NAME = "acadsigma-search-resource"
+API_KEY = "aY8NB9JKH2G0MYsI0tH1hUC3w1F3wMFNjMBHSglxpeAzSeC6ugEH"
+API_VERSION = "2020-06-30"
+
+@app.route("/search/indexer/run", methods=["POST"])
+def run_indexer():
+    data = request.get_json()
+    indexer_name = data.get("indexer_name")
+
+    if not indexer_name:
+        return jsonify({"error": "Missing 'indexer_name' in request body"}), 400
+
+    url = f"https://{SEARCH_SERVICE_NAME}.search.windows.net/indexers/{indexer_name}/run?api-version={API_VERSION}"
+    headers = {
+        "Content-Type": "application/json",
+        "api-key": API_KEY
+    }
+
+    try:
+        response = requests.post(url, headers=headers)
+        if response.status_code == 202:
+            return jsonify({"message": f"Indexer '{indexer_name}' triggered successfully"}), 202
+        else:
+            return jsonify({
+                "error": "Failed to trigger indexer",
+                "status_code": response.status_code,
+                "details": response.text
+            }), response.status_code
+    except Exception as e:
+        return jsonify({"error": f"Exception occurred: {str(e)}"}), 500
     
 if __name__ == '__main__':
     # Use the environment variable PORT, or default to port 5000 if not set
